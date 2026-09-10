@@ -1,0 +1,5 @@
+SELECT
+    nome,
+    preco_unit
+FROM TB_PRODUTO
+ORDER BY preco_unit DESC;
