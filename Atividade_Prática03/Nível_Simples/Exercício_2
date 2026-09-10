@@ -1,0 +1,4 @@
+SELECT id_venda, dt_venda, valor_liquido
+FROM TB_VENDA
+WHERE canal = 'APP'
+  AND status = 'FECHADA';
