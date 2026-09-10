@@ -1,0 +1,4 @@
+SELECT nome, email, telefone
+FROM TB_CLIENTE
+WHERE ativo = 'S'
+ORDER BY nome ASC;
