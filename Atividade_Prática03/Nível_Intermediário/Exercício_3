@@ -1,0 +1,9 @@
+SELECT
+    c.nome,
+    c.email
+FROM TB_CLIENTE c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM TB_VENDA v
+    WHERE v.id_cliente = c.id_cliente
+);
