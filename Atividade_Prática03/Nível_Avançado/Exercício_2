@@ -1,0 +1,14 @@
+SELECT
+    vd.nome,
+    SUM(v.valor_liquido) AS faturamento_total,
+    ROUND(
+        SUM(v.valor_liquido) /
+        SUM(SUM(v.valor_liquido)) OVER () * 100,
+        2
+    ) AS percentual_faturamento
+FROM TB_VENDEDOR vd
+JOIN TB_VENDA v
+    ON vd.id_vendedor = v.id_vendedor
+WHERE v.status = 'FECHADA'
+GROUP BY vd.nome
+ORDER BY faturamento_total DESC;
