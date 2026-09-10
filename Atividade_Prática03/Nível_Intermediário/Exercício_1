@@ -1,0 +1,7 @@
+SELECT
+    canal,
+    SUM(valor_liquido) AS faturamento_total
+FROM TB_VENDA
+WHERE status = 'FECHADA'
+GROUP BY canal
+ORDER BY faturamento_total DESC;
