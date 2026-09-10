@@ -1,0 +1,9 @@
+SELECT
+    nome,
+    preco_unit,
+    CASE
+        WHEN preco_unit < 50 THEN 'BARATO'
+        WHEN preco_unit BETWEEN 50 AND 200 THEN 'MÉDIO'
+        ELSE 'CARO'
+    END AS faixa_preco
+FROM TB_PRODUTO;
