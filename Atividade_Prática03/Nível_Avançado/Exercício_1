@@ -1,0 +1,12 @@
+SELECT
+    c.nome,
+    v.dt_venda,
+    v.valor_liquido,
+    ROW_NUMBER() OVER (
+        PARTITION BY c.id_cliente
+        ORDER BY v.dt_venda
+    ) AS numero_compra
+FROM TB_CLIENTE c
+JOIN TB_VENDA v
+    ON c.id_cliente = v.id_cliente
+ORDER BY c.nome, v.dt_venda;
