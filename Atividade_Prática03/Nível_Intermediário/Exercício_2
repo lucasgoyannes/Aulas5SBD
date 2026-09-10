@@ -1,0 +1,9 @@
+SELECT
+    vd.nome,
+    ROUND(AVG(v.valor_liquido), 2) AS ticket_medio
+FROM TB_VENDEDOR vd
+JOIN TB_VENDA v
+    ON vd.id_vendedor = v.id_vendedor
+WHERE v.status = 'FECHADA'
+GROUP BY vd.nome
+ORDER BY ticket_medio DESC;
