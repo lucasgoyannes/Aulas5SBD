@@ -1,0 +1,6 @@
+SELECT
+    id_venda,
+    valor_liquido,
+    valor_liquido - AVG(valor_liquido) OVER () AS diferenca_para_media
+FROM TB_VENDA
+ORDER BY id_venda;
