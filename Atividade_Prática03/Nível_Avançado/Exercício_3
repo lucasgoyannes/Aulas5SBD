@@ -1,0 +1,23 @@
+WITH vendas_mensais AS (
+    SELECT
+        TRUNC(v.dt_venda, 'MM') AS mes_referencia,
+        vd.nome,
+        SUM(v.valor_liquido) AS receita_total
+    FROM TB_VENDEDOR vd
+    JOIN TB_VENDA v
+        ON vd.id_vendedor = v.id_vendedor
+    WHERE v.status = 'FECHADA'
+    GROUP BY
+        TRUNC(v.dt_venda, 'MM'),
+        vd.nome
+)
+SELECT
+    mes_referencia,
+    nome,
+    receita_total,
+    DENSE_RANK() OVER (
+        PARTITION BY mes_referencia
+        ORDER BY receita_total DESC
+    ) AS ranking_mensal
+FROM vendas_mensais
+ORDER BY mes_referencia, ranking_mensal;
