@@ -1,0 +1,9 @@
+SELECT
+    c.nome,
+    v.dt_venda,
+    v.valor_liquido,
+    ROW_NUMBER() OVER (PARTITION BY v.id_cliente ORDER BY v.dt_venda) AS numero_compra
+FROM TB_VENDA v
+JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+WHERE v.status = 'FECHADA'
+ORDER BY c.nome, numero_compra;
