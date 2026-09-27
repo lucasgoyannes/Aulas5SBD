@@ -1,0 +1,21 @@
+-- participacao percentual de cada vendedor no faturamento total
+SELECT
+    vd.nome AS vendedor,
+    SUM(v.valor_liquido) AS faturamento_vendedor,
+    ROUND(SUM(v.valor_liquido) / SUM(SUM(v.valor_liquido)) OVER () * 100, 2) AS percentual_participacao
+FROM TB_VENDA v
+JOIN TB_VENDEDOR vd ON vd.id_vendedor = v.id_vendedor
+WHERE v.status = 'FECHADA'
+GROUP BY vd.nome
+ORDER BY percentual_participacao DESC;
+
+
+-- comparando cada venda com a media geral da empresa
+SELECT
+    id_venda,
+    valor_liquido,
+    ROUND(AVG(valor_liquido) OVER (), 2) AS media_geral,
+    ROUND(valor_liquido - AVG(valor_liquido) OVER (), 2) AS diferenca_media
+FROM TB_VENDA
+WHERE status = 'FECHADA'
+ORDER BY id_venda;
