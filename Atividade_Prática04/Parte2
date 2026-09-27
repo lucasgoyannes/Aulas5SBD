@@ -1,0 +1,36 @@
+-- ranking mensal de vendedores por faturamento
+WITH vendas_por_mes AS (
+    SELECT
+        vd.nome AS vendedor,
+        TRUNC(v.dt_venda, 'MM') AS mes_referencia,
+        SUM(v.valor_liquido) AS total_vendido
+    FROM TB_VENDA v
+    JOIN TB_VENDEDOR vd ON vd.id_vendedor = v.id_vendedor
+    WHERE v.status = 'FECHADA'
+    GROUP BY vd.nome, TRUNC(v.dt_venda, 'MM')
+)
+SELECT
+    vendedor,
+    mes_referencia,
+    total_vendido,
+    DENSE_RANK() OVER (PARTITION BY mes_referencia ORDER BY total_vendido DESC) AS posicao_ranking
+FROM vendas_por_mes
+ORDER BY mes_referencia, posicao_ranking;
+
+
+-- top 2 produtos mais vendidos de cada categoria
+WITH ranking_produtos AS (
+    SELECT
+        cat.nome AS categoria,
+        p.nome AS produto,
+        SUM(vi.quantidade) AS quantidade_vendida,
+        DENSE_RANK() OVER (PARTITION BY p.id_categoria ORDER BY SUM(vi.quantidade) DESC) AS posicao
+    FROM TB_VENDA_ITEM vi
+    JOIN TB_PRODUTO p ON p.id_produto = vi.id_produto
+    JOIN TB_CATEGORIA cat ON cat.id_categoria = p.id_categoria
+    GROUP BY cat.nome, p.id_categoria, p.nome
+)
+SELECT categoria, produto, quantidade_vendida, posicao
+FROM ranking_produtos
+WHERE posicao <= 2
+ORDER BY categoria, posicao;
