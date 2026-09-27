@@ -1,3 +1,4 @@
+-- numeracao cronologica das compras de cada cliente
 SELECT
     c.nome,
     v.dt_venda,
