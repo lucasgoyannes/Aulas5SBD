@@ -1,0 +1,53 @@
+-- =========================================================
+-- QUESTÃO 1: VIOLAÇÃO DE CHAVE ESTRANGEIRA (FK)
+-- =========================================================
+
+INSERT INTO TB_VENDA (id_cliente, id_vendedor, canal, valor_liquido)
+VALUES (100, 1, 'SITE', 500.00);
+
+/*
+A tentativa de inserir a venda com o id_cliente = 100 foi
+bloqueada pelo banco, pois esse cliente não existe na tabela
+TB_CLIENTE. A constraint FK_VENDA_CLIENTE impediu o registro
+e garante que toda venda esteja vinculada a um cliente válido,
+evitando referências inexistentes.
+*/
+
+-- =========================================================
+-- QUESTÃO 2: VIOLAÇÃO DE DOMÍNIO (CHECK CONSTRAINT)
+-- =========================================================
+
+UPDATE TB_VENDA
+SET status = 'PENDENTE'
+WHERE id_venda = 1;
+
+/*
+A tentativa de alterar o status da venda para PENDENTE foi
+bloqueada pelo banco de dados, pois esse valor não está entre
+os status permitidos pela constraint CHECK da tabela TB_VENDA.
+O Oracle retornou o erro ORA-02290, mostrando que a regra
+definida no banco foi violada.
+*/
+
+-- =========================================================
+-- QUESTÃO 3: IMPEDINDO PREÇOS ABSURDOS
+-- =========================================================
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria
+     FROM TB_CATEGORIA
+     WHERE nome = 'Tecnologia e Informática'),
+    'PROD-TESTE-NEG',
+    'Produto com Preço Negativo',
+    -15.00
+);
+
+/*
+A tentativa de inserir o produto com preço de R$ -15,00 foi
+bloqueada pelo banco. O erro retornado foi ORA-02290,
+indicando que a constraint CK_PRODUTO_PRECO foi violada,
+já que o preço cadastrado precisa ser maior que zero.
+Isso mostra que o próprio banco impede o cadastro de valores
+inválidos.
+*/
