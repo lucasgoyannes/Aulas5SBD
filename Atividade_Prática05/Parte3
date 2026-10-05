@@ -1,0 +1,36 @@
+-- =========================================================
+-- QUESTÃO 6: EXCLUSÃO EM CASCATA (ON DELETE CASCADE)
+-- =========================================================
+
+SAVEPOINT teste_cascade;
+
+DELETE FROM TB_VENDA
+WHERE id_venda = 1;
+
+SELECT COUNT(*) AS itens_restantes
+FROM TB_VENDA_ITEM
+WHERE id_venda = 1;
+
+ROLLBACK TO teste_cascade;
+
+/*
+Ao excluir a venda, os itens relacionados também são excluídos
+automaticamente por causa da cláusula ON DELETE CASCADE. Apesar
+de facilitar a exclusão dos registros associados, seu uso
+indiscriminado pode causar a perda de dados importantes do
+histórico do sistema.
+*/
+
+-- =========================================================
+-- QUESTÃO 7: EXCLUSÃO LÓGICA (SOFT DELETE)
+-- =========================================================
+
+UPDATE TB_VENDEDOR
+SET ativo = 'N'
+WHERE id_vendedor = 1;
+
+/*
+O vendedor é desativado sem ser excluído fisicamente da tabela,
+mantendo seu registro no banco. Essa técnica é preferível porque
+preserva o histórico das vendas e facilita consultas e auditorias.
+*/
