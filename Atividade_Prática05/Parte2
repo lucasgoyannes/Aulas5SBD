@@ -1,0 +1,30 @@
+-- =========================================================
+-- QUESTÃO 4: LIMITE DE DESCONTO DOS ITENS (CHECK)
+-- =========================================================
+
+ALTER TABLE TB_VENDA_ITEM
+ADD CONSTRAINT CK_VENDA_ITEM_DESCONTO_MAX
+CHECK (desconto_item >= 0
+       AND desconto_item <= preco_unit * 0.50);
+
+/*
+A nova constraint foi criada para impedir que o desconto de um
+item ultrapasse 50% do seu preço unitário. Também foi definido
+que o desconto não pode ser negativo. Assim, o próprio banco
+passa a impedir descontos fora do limite estabelecido.
+*/
+
+-- =========================================================
+-- QUESTÃO 5: GARANTIA DE UNICIDADE DO TELEFONE (UNIQUE)
+-- =========================================================
+
+ALTER TABLE TB_CLIENTE
+ADD CONSTRAINT UK_CLIENTE_TELEFONE
+UNIQUE (telefone);
+
+/*
+A nova restrição garante que o telefone de cada cliente seja
+único dentro da tabela TB_CLIENTE. Dessa forma, o banco impede
+que dois clientes diferentes sejam cadastrados com o mesmo
+número de telefone, evitando duplicidade no contato.
+*/
