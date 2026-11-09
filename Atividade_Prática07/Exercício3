@@ -1,0 +1,27 @@
+-- =========================================================
+-- EXERCÍCIO 3: CONSULTA DE METADADOS DAS MATERIALIZED VIEWS
+-- =========================================================
+
+-- Consultar metadados das Materialized Views
+SELECT
+    mview_name,
+    refresh_mode,
+    refresh_method,
+    last_refresh_date,
+    staleness
+FROM USER_MVIEWS
+ORDER BY mview_name;
+
+-- Consultar logs de Materialized Views
+SELECT
+    master,
+    log_table,
+    log_trigger
+FROM USER_MVIEW_LOGS
+ORDER BY master;
+
+/*
+As consultas permitem verificar as Materialized Views
+existentes no banco, seus métodos de atualização e os
+logs associados às tabelas utilizadas por elas.
+*/
