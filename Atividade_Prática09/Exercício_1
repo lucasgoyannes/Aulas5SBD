@@ -1,0 +1,31 @@
+-- =========================================================
+-- EXERCÍCIO 1: SEQUENCE COM REINÍCIO (CYCLE)
+-- =========================================================
+
+-- Criar sequência com limite máximo de 5
+CREATE SEQUENCE seq_ticket_diario
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 5
+    CYCLE
+    CACHE 2;
+
+-- Testar a geração dos valores
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+SELECT seq_ticket_diario.NEXTVAL AS ticket FROM DUAL;
+
+/*
+A sequência começa no valor 1 e aumenta de um em um até
+chegar ao limite máximo de 5. Como foi configurada com
+CYCLE, após atingir esse limite ela reinicia automaticamente
+em 1. Assim, os valores voltam a se repetir, o que pode
+causar problemas de duplicidade caso sejam utilizados como
+chaves primárias.
+*/
