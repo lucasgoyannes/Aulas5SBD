@@ -1,0 +1,21 @@
+-- =========================================================
+-- EXERCÍCIO 3: ANÁLISE DE CONCORRÊNCIA E CACHE
+-- =========================================================
+
+/*
+Em sistemas com muitas operações simultâneas, a opção NOCACHE
+pode prejudicar o desempenho porque os valores da sequência
+não ficam armazenados previamente na memória. Isso aumenta
+a necessidade de acesso e atualização das informações no
+dicionário de dados, podendo gerar contenção por recursos
+como row cache lock na SGA e aumentar o tempo de obtenção
+dos próximos valores.
+
+A utilização de CACHE reduz esse problema ao manter uma
+quantidade de valores previamente reservada na memória,
+permitindo que várias sessões obtenham números com menor
+custo. Embora uma falha na instância possa causar a perda
+dos valores reservados e gerar lacunas na numeração, essa
+é uma alternativa mais adequada para sistemas de alta
+concorrência que priorizam o desempenho.
+*/
