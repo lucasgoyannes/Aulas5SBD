@@ -1,0 +1,13 @@
+-- =========================================================
+-- EXERCÍCIO 2: ATUALIZAÇÃO AUTOMÁTICA (ON COMMIT)
+-- =========================================================
+
+ALTER MATERIALIZED VIEW MV_VENDAS_CATEGORIA
+REFRESH COMPLETE ON COMMIT;
+
+/*
+O modo ON COMMIT atualiza a view automaticamente quando
+uma alteração nas tabelas base é confirmada. Isso pode
+aumentar o tempo do COMMIT e prolongar a retenção de locks,
+prejudicando o desempenho em ambientes com muitos usuários.
+*/
