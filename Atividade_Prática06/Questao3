@@ -1,0 +1,28 @@
+-- =========================================================
+-- QUESTÃO 3: VIEW DE RECEITA POR CATEGORIA
+-- =========================================================
+
+CREATE OR REPLACE VIEW V_VENDAS_POR_CATEGORIA AS
+SELECT
+    TRUNC(v.dt_venda, 'MM') AS mes_referencia,
+    c.id_categoria,
+    c.nome AS categoria,
+    SUM(i.valor_total) AS faturamento_total
+FROM TB_VENDA v
+INNER JOIN TB_VENDA_ITEM i
+    ON v.id_venda = i.id_venda
+INNER JOIN TB_PRODUTO p
+    ON i.id_produto = p.id_produto
+INNER JOIN TB_CATEGORIA c
+    ON p.id_categoria = c.id_categoria
+WHERE v.status = 'FECHADA'
+GROUP BY
+    TRUNC(v.dt_venda, 'MM'),
+    c.id_categoria,
+    c.nome;
+
+/*
+A view agrupa o faturamento dos produtos por mês e categoria,
+considerando apenas as vendas fechadas. Isso permite analisar
+o desempenho de cada categoria ao longo do tempo.
+*/
