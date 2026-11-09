@@ -1,0 +1,30 @@
+-- =========================================================
+-- EXERCÍCIO 1: MV DE VENDAS POR CATEGORIA
+-- =========================================================
+
+CREATE MATERIALIZED VIEW MV_VENDAS_CATEGORIA
+BUILD IMMEDIATE
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT
+    c.id_categoria,
+    c.nome AS categoria,
+    COUNT(DISTINCT v.id_venda) AS quantidade_vendas,
+    SUM(i.valor_total) AS faturamento_total
+FROM TB_VENDA v
+INNER JOIN TB_VENDA_ITEM i
+    ON v.id_venda = i.id_venda
+INNER JOIN TB_PRODUTO p
+    ON i.id_produto = p.id_produto
+INNER JOIN TB_CATEGORIA c
+    ON p.id_categoria = c.id_categoria
+WHERE v.status = 'FECHADA'
+GROUP BY
+    c.id_categoria,
+    c.nome;
+
+/*
+A view materializada armazena o faturamento e a quantidade
+de vendas fechadas por categoria, facilitando consultas
+analíticas sem precisar refazer todos os JOINs e agrupamentos.
+*/
