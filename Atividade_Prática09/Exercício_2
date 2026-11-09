@@ -1,0 +1,65 @@
+-- =========================================================
+-- EXERCÍCIO 2: MIGRAÇÃO TRIGGER VS DEFAULT
+-- =========================================================
+
+-- Criar sequência para utilização com Trigger
+CREATE SEQUENCE seq_cliente_trigger
+    START WITH 1
+    INCREMENT BY 1
+    CACHE 20
+    NOCYCLE;
+
+-- Criar tabela para demonstrar a abordagem antiga
+CREATE TABLE TB_CLIENTES_TRIGGER (
+    id_cliente NUMBER PRIMARY KEY,
+    nome VARCHAR2(100) NOT NULL
+);
+
+-- Criar Trigger para preencher o ID automaticamente
+CREATE OR REPLACE TRIGGER trg_cliente_id
+BEFORE INSERT ON TB_CLIENTES_TRIGGER
+FOR EACH ROW
+BEGIN
+    IF :NEW.id_cliente IS NULL THEN
+        :NEW.id_cliente := seq_cliente_trigger.NEXTVAL;
+    END IF;
+END;
+/
+
+-- Inserir registro sem informar o ID
+INSERT INTO TB_CLIENTES_TRIGGER (nome)
+VALUES ('Cliente com Trigger');
+
+
+-- Criar sequência para utilização com DEFAULT
+CREATE SEQUENCE seq_cliente_default
+    START WITH 1
+    INCREMENT BY 1
+    CACHE 20
+    NOCYCLE;
+
+-- Criar tabela utilizando a abordagem moderna
+CREATE TABLE TB_CLIENTES_DEFAULT (
+    id_cliente NUMBER DEFAULT seq_cliente_default.NEXTVAL PRIMARY KEY,
+    nome VARCHAR2(100) NOT NULL
+);
+
+-- Inserir registro sem informar o ID
+INSERT INTO TB_CLIENTES_DEFAULT (nome)
+VALUES ('Cliente com Default');
+
+COMMIT;
+
+-- Consultar os registros gerados
+SELECT * FROM TB_CLIENTES_TRIGGER;
+
+SELECT * FROM TB_CLIENTES_DEFAULT;
+
+/*
+A abordagem com Trigger exige a criação de um objeto
+adicional para preencher o identificador durante a inserção.
+Com DEFAULT, a própria tabela utiliza NEXTVAL para gerar o ID
+automaticamente. Essa alternativa deixa o código mais simples,
+facilita a manutenção e evita a execução de uma Trigger para
+uma tarefa tão simples.
+*/
