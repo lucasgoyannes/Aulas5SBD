@@ -1,0 +1,39 @@
+-- =========================================================
+-- EXERCÍCIO 1: MÉTODOS DO TIPO T_RETANGULO
+-- =========================================================
+
+-- Criar tipo de objeto retângulo
+CREATE OR REPLACE TYPE t_retangulo AS OBJECT (
+    largura NUMBER,
+    altura NUMBER,
+    MEMBER FUNCTION calcular_area RETURN NUMBER,
+    MEMBER FUNCTION calcular_perimetro RETURN NUMBER
+);
+/
+
+-- Implementar os métodos do tipo
+CREATE OR REPLACE TYPE BODY t_retangulo AS
+
+    MEMBER FUNCTION calcular_area RETURN NUMBER IS
+    BEGIN
+        RETURN SELF.largura * SELF.altura;
+    END;
+
+    MEMBER FUNCTION calcular_perimetro RETURN NUMBER IS
+    BEGIN
+        RETURN 2 * (SELF.largura + SELF.altura);
+    END;
+
+END;
+/
+
+-- Instanciar um retângulo e testar os métodos
+SELECT
+    r.retangulo.largura AS largura,
+    r.retangulo.altura AS altura,
+    r.retangulo.calcular_area() AS area,
+    r.retangulo.calcular_perimetro() AS perimetro
+FROM (
+    SELECT t_retangulo(5, 3) AS retangulo
+    FROM DUAL
+) r;
