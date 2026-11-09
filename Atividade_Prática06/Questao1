@@ -1,0 +1,24 @@
+-- =========================================================
+-- QUESTÃO 1: VIEW DE RESUMO DE VENDAS
+-- =========================================================
+
+CREATE OR REPLACE VIEW V_VENDAS_RESUMO AS
+SELECT
+    v.id_venda,
+    v.dt_venda,
+    v.status,
+    v.canal,
+    c.nome AS nome_cliente,
+    vd.nome AS nome_vendedor,
+    v.valor_liquido
+FROM TB_VENDA v
+INNER JOIN TB_CLIENTE c
+    ON v.id_cliente = c.id_cliente
+INNER JOIN TB_VENDEDOR vd
+    ON v.id_vendedor = vd.id_vendedor;
+
+/*
+A view reúne as principais informações das vendas, incluindo
+os dados dos clientes e vendedores relacionados. Assim, os
+JOINs ficam centralizados, facilitando consultas futuras.
+*/
