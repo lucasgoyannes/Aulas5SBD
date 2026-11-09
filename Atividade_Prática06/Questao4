@@ -1,0 +1,18 @@
+-- =========================================================
+-- QUESTÃO 4: CONSULTA SOBRE A VIEW ANALÍTICA
+-- =========================================================
+
+SELECT
+    mes_referencia,
+    categoria,
+    faturamento_total
+FROM V_VENDAS_POR_CATEGORIA
+WHERE mes_referencia = TRUNC(SYSDATE, 'MM')
+  AND faturamento_total > 5000
+ORDER BY faturamento_total DESC;
+
+/*
+A consulta retorna as categorias que ultrapassaram R$ 5.000,00
+em faturamento no mês atual, utilizando os dados já agrupados
+pela view analítica.
+*/
