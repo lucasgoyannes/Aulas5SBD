@@ -1,0 +1,17 @@
+-- =========================================================
+-- EXERCÍCIO 3: SINÔNIMOS INVÁLIDOS / ÓRFÃOS
+-- =========================================================
+
+/*
+Quando a tabela de destino é excluída com DROP TABLE, o
+sinônimo que apontava para ela não é removido automaticamente.
+Ele permanece registrado no dicionário de dados, mas fica
+sem um objeto válido para acessar.
+
+Ao tentar realizar uma consulta utilizando esse sinônimo,
+o Oracle não encontra a tabela de origem e retorna o erro
+ORA-00942: table or view does not exist.
+
+Para remover o sinônimo, é necessário executar DROP SYNONYM
+separadamente. Essa operação não exclui a tabela de origem.
+*/
