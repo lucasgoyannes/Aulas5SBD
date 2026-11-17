@@ -19,3 +19,4 @@ BEGIN
 
     DBMS_OUTPUT.PUT_LINE('Texto sanitizado: ' || v_texto);
 END;
+/
