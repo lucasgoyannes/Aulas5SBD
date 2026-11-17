@@ -1,0 +1,19 @@
+-- =========================================================
+-- EXERCÍCIO 2: BLOQUEIO CONCORRENTE COM FOR UPDATE
+-- =========================================================
+
+/*
+A cláusula FOR UPDATE bloqueia a linha da conta de origem
+durante a transação, impedindo que outra sessão altere o
+mesmo saldo enquanto a transferência está sendo processada.
+O bloqueio permanece até ocorrer um COMMIT ou ROLLBACK.
+
+Sem essa proteção, duas transações simultâneas poderiam
+consultar o mesmo saldo, validar que existe dinheiro
+suficiente e tentar realizar transferências ao mesmo tempo.
+Isso poderia permitir gastos acima do saldo disponível,
+causando inconsistências financeiras.
+
+Portanto, FOR UPDATE ajuda a evitar condições de corrida,
+garantindo maior segurança nas operações simultâneas.
+*/
