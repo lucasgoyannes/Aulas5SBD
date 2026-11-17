@@ -1,0 +1,17 @@
+-- =========================================================
+-- EXERCÍCIO 2: ANÁLISE DE DEPENDÊNCIAS E INVALIDAÇÃO
+-- =========================================================
+
+/*
+Quando apenas o PACKAGE BODY é alterado e recompilado,
+os programas externos que utilizam o pacote não ficam
+inválidos, pois a especificação pública permanece igual.
+A implementação interna pode ser modificada sem alterar
+a interface utilizada pelos outros programas.
+
+Por outro lado, quando a PACKAGE SPECIFICATION é alterada,
+como na mudança da assinatura de um procedimento, os objetos
+que dependem dessa interface podem ser invalidados. Eles
+precisarão ser recompilados e, caso utilizem a assinatura
+antiga, poderão apresentar erros até que sejam ajustados.
+*/
