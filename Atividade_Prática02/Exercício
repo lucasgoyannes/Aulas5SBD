@@ -1,0 +1,747 @@
+-- ================================================================
+-- SCRIPT DE CARGA DE DADOS
+-- ================================================================
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
+
+
+-- ================================================================
+-- POPULANDO TB_CATEGORIA
+-- ================================================================
+
+INSERT INTO TB_CATEGORIA (nome)
+VALUES ('Tecnologia e Informática');
+
+INSERT INTO TB_CATEGORIA (nome)
+VALUES ('Eletrodomésticos');
+
+INSERT INTO TB_CATEGORIA (nome)
+VALUES ('Móveis e Decoração');
+
+INSERT INTO TB_CATEGORIA (nome)
+VALUES ('Papelaria e Escritório');
+
+INSERT INTO TB_CATEGORIA (nome)
+VALUES ('Esporte e Lazer');
+
+
+-- ================================================================
+-- POPULANDO TB_CLIENTE
+-- ================================================================
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Ana Silva', 'ana.silva@email.com', '12345678901', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Bruno Santos', 'bruno.santos@email.com', '23456789012', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Carlos Oliveira', 'carlos.oliveira@email.com', '34567890123', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Daniela Lima', 'daniela.lima@email.com', '45678901234', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Eduardo Pereira', 'eduardo.pereira@email.com', '56789012345', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Fernanda Souza', 'fernanda.souza@email.com', '67890123456', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Gabriel Costa', 'gabriel.costa@email.com', '78901234567', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Helena Rodrigues', 'helena.rodrigues@email.com', '89012345678', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Igor Alves', 'igor.alves@email.com', '90123456789', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Juliana Martins', 'juliana.martins@email.com', '01234567890', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Lucas Ribeiro', 'lucas.ribeiro@email.com', '11223344556', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Mariana Carvalho', 'mariana.carvalho@email.com', '22334455667', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Nicolas Gomes', 'nicolas.gomes@email.com', '33445566778', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Olivia Pinto', 'olivia.pinto@email.com', '44556677889', 'S');
+
+INSERT INTO TB_CLIENTE (nome, email, cpf, ativo)
+VALUES ('Pedro Rocha', 'pedro.rocha@email.com', '55667788990', 'S');
+
+
+-- ================================================================
+-- POPULANDO TB_VENDEDOR
+-- ================================================================
+
+INSERT INTO TB_VENDEDOR (nome, email, ativo)
+VALUES ('Marcos Pontes', 'marcos.pontes@vendas.com', 'S');
+
+INSERT INTO TB_VENDEDOR (nome, email, ativo)
+VALUES ('Patricia Ramos', 'patricia.ramos@vendas.com', 'S');
+
+INSERT INTO TB_VENDEDOR (nome, email, ativo)
+VALUES ('Roberto Carlos', 'roberto.carlos@vendas.com', 'S');
+
+INSERT INTO TB_VENDEDOR (nome, email, ativo)
+VALUES ('Sandra Alencar', 'sandra.alencar@vendas.com', 'S');
+
+INSERT INTO TB_VENDEDOR (nome, email, ativo)
+VALUES ('Thiago Silva', 'thiago.silva@vendas.com', 'S');
+
+INSERT INTO TB_VENDEDOR (nome, email, ativo)
+VALUES ('Regina Duarte', 'regina.duarte@vendas.com', 'S');
+
+
+-- ================================================================
+-- POPULANDO TB_PRODUTO
+-- ================================================================
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Tecnologia e Informática'),
+    'PROD-NOTE-01',
+    'Notebook Gamer Core i7 16GB',
+    4500.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Tecnologia e Informática'),
+    'PROD-MOU-02',
+    'Mouse Sem Fio Ergonômico',
+    120.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Tecnologia e Informática'),
+    'PROD-KEY-03',
+    'Teclado Mecânico RGB',
+    250.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Tecnologia e Informática'),
+    'PROD-MON-04',
+    'Monitor UltraWide 29 polegadas',
+    1100.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Eletrodomésticos'),
+    'PROD-GEL-05',
+    'Geladeira Frost Free 400L',
+    3200.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Eletrodomésticos'),
+    'PROD-MIC-06',
+    'Micro-ondas Digital 30L',
+    650.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Eletrodomésticos'),
+    'PROD-AIR-07',
+    'Fritadeira Elétrica Airfryer',
+    450.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Eletrodomésticos'),
+    'PROD-LIQ-08',
+    'Liquidificador 1200W',
+    180.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Móveis e Decoração'),
+    'PROD-CAD-09',
+    'Cadeira de Escritório Presidente',
+    850.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Móveis e Decoração'),
+    'PROD-MES-10',
+    'Mesa de Escritório em L',
+    450.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Móveis e Decoração'),
+    'PROD-SOF-11',
+    'Sofá Retrátil 3 Lugares',
+    1900.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Papelaria e Escritório'),
+    'PROD-AGE-12',
+    'Agenda Executiva 2026',
+    45.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Papelaria e Escritório'),
+    'PROD-CAN-13',
+    'Kit Canetas Coloridas Gel',
+    35.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Esporte e Lazer'),
+    'PROD-BIK-14',
+    'Bicicleta Aro 29 Alumínio',
+    1500.00
+);
+
+INSERT INTO TB_PRODUTO (id_categoria, sku, nome, preco_unit)
+VALUES (
+    (SELECT id_categoria FROM TB_CATEGORIA
+     WHERE nome = 'Esporte e Lazer'),
+    'PROD-BOL-15',
+    'Bola de Futebol Oficial',
+    120.00
+);
+
+
+-- ================================================================
+-- POPULANDO TB_VENDA
+-- ================================================================
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'ana.silva@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'marcos.pontes@vendas.com'),
+
+    TO_DATE('2026-01-15', 'YYYY-MM-DD'),
+
+    4720.00,
+    'SITE',
+    'FECHADA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'bruno.santos@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'patricia.ramos@vendas.com'),
+
+    TO_DATE('2026-02-10', 'YYYY-MM-DD'),
+
+    3850.00,
+    'APP',
+    'FECHADA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'carlos.oliveira@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'roberto.carlos@vendas.com'),
+
+    TO_DATE('2026-03-05', 'YYYY-MM-DD'),
+
+    2200.00,
+    'LOJA',
+    'FECHADA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'daniela.lima@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'sandra.alencar@vendas.com'),
+
+    TO_DATE('2026-03-20', 'YYYY-MM-DD'),
+
+    1170.00,
+    'SITE',
+    'ABERTA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'eduardo.pereira@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'thiago.silva@vendas.com'),
+
+    TO_DATE('2026-04-02', 'YYYY-MM-DD'),
+
+    4550.00,
+    'TELEFONE',
+    'FECHADA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'fernanda.souza@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'regina.duarte@vendas.com'),
+
+    TO_DATE('2026-04-15', 'YYYY-MM-DD'),
+
+    3450.00,
+    'APP',
+    'CANCELADA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'gabriel.costa@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'marcos.pontes@vendas.com'),
+
+    TO_DATE('2026-05-01', 'YYYY-MM-DD'),
+
+    1570.00,
+    'SITE',
+    'FECHADA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'helena.rodrigues@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'patricia.ramos@vendas.com'),
+
+    TO_DATE('2026-05-18', 'YYYY-MM-DD'),
+
+    5700.00,
+    'LOJA',
+    'FECHADA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'igor.alves@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'roberto.carlos@vendas.com'),
+
+    TO_DATE('2026-06-03', 'YYYY-MM-DD'),
+
+    830.00,
+    'TELEFONE',
+    'ABERTA'
+);
+
+INSERT INTO TB_VENDA
+    (id_cliente, id_vendedor, dt_venda, valor_liquido, canal, status)
+VALUES (
+    (SELECT id_cliente FROM TB_CLIENTE
+     WHERE email = 'juliana.martins@email.com'),
+
+    (SELECT id_vendedor FROM TB_VENDEDOR
+     WHERE email = 'sandra.alencar@vendas.com'),
+
+    TO_DATE('2026-07-10', 'YYYY-MM-DD'),
+
+    900.00,
+    'APP',
+    'FECHADA'
+);
+
+
+-- ================================================================
+-- POPULANDO TB_VENDA_ITEM
+-- ================================================================
+
+-- VENDA 1
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'ana.silva@email.com'
+       AND v.dt_venda = TO_DATE('2026-01-15', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-NOTE-01'),
+
+    1,
+    4500.00,
+    0,
+    4500.00
+);
+
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'ana.silva@email.com'
+       AND v.dt_venda = TO_DATE('2026-01-15', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-MOU-02'),
+
+    2,
+    120.00,
+    0,
+    240.00
+);
+
+
+-- VENDA 2
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'bruno.santos@email.com'
+       AND v.dt_venda = TO_DATE('2026-02-10', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-GEL-05'),
+
+    1,
+    3200.00,
+    10,
+    2880.00
+);
+
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'bruno.santos@email.com'
+       AND v.dt_venda = TO_DATE('2026-02-10', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-AIR-07'),
+
+    2,
+    450.00,
+    0,
+    900.00
+);
+
+
+-- VENDA 3
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'carlos.oliveira@email.com'
+       AND v.dt_venda = TO_DATE('2026-03-05', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-MON-04'),
+
+    2,
+    1100.00,
+    0,
+    2200.00
+);
+
+
+-- VENDA 4
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'daniela.lima@email.com'
+       AND v.dt_venda = TO_DATE('2026-03-20', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-LIQ-08'),
+
+    3,
+    180.00,
+    5,
+    513.00
+);
+
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'daniela.lima@email.com'
+       AND v.dt_venda = TO_DATE('2026-03-20', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-MIC-06'),
+
+    1,
+    650.00,
+    0,
+    650.00
+);
+
+
+-- VENDA 5
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'eduardo.pereira@email.com'
+       AND v.dt_venda = TO_DATE('2026-04-02', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-NOTE-01'),
+
+    1,
+    4500.00,
+    0,
+    4500.00
+);
+
+
+-- VENDA 6
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'fernanda.souza@email.com'
+       AND v.dt_venda = TO_DATE('2026-04-15', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-CAD-09'),
+
+    2,
+    850.00,
+    10,
+    1530.00
+);
+
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'fernanda.souza@email.com'
+       AND v.dt_venda = TO_DATE('2026-04-15', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-MES-10'),
+
+    1,
+    450.00,
+    0,
+    450.00
+);
+
+
+-- VENDA 7
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'gabriel.costa@email.com'
+       AND v.dt_venda = TO_DATE('2026-05-01', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-SOF-11'),
+
+    1,
+    1900.00,
+    20,
+    1520.00
+);
+
+
+-- VENDA 8
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'helena.rodrigues@email.com'
+       AND v.dt_venda = TO_DATE('2026-05-18', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-BIK-14'),
+
+    2,
+    1500.00,
+    10,
+    2700.00
+);
+
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'helena.rodrigues@email.com'
+       AND v.dt_venda = TO_DATE('2026-05-18', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-BOL-15'),
+
+    5,
+    120.00,
+    0,
+    600.00
+);
+
+
+-- VENDA 9
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'igor.alves@email.com'
+       AND v.dt_venda = TO_DATE('2026-06-03', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-KEY-03'),
+
+    2,
+    250.00,
+    0,
+    500.00
+);
+
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'igor.alves@email.com'
+       AND v.dt_venda = TO_DATE('2026-06-03', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-CAN-13'),
+
+    10,
+    35.00,
+    5,
+    332.50
+);
+
+
+-- VENDA 10
+INSERT INTO TB_VENDA_ITEM
+    (id_venda, id_produto, quantidade, valor_unit,
+     percentual_desconto, valor_total)
+VALUES (
+    (SELECT v.id_venda
+     FROM TB_VENDA v
+     JOIN TB_CLIENTE c ON c.id_cliente = v.id_cliente
+     WHERE c.email = 'juliana.martins@email.com'
+       AND v.dt_venda = TO_DATE('2026-07-10', 'YYYY-MM-DD')),
+
+    (SELECT id_produto FROM TB_PRODUTO
+     WHERE sku = 'PROD-AIR-07'),
+
+    2,
+    450.00,
+    0,
+    900.00
+);
+
+
+-- ================================================================
+-- CONFIRMANDO OS DADOS
+-- ================================================================
+
+COMMIT;
+
+
+-- CONSULTAS PARA CONFERÊNCIA
+SELECT * FROM TB_CATEGORIA;
+SELECT * FROM TB_CLIENTE;
+SELECT * FROM TB_VENDEDOR;
+SELECT * FROM TB_PRODUTO;
+SELECT * FROM TB_VENDA;
+SELECT * FROM TB_VENDA_ITEM;
