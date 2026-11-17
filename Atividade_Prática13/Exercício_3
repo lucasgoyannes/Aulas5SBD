@@ -1,0 +1,25 @@
+-- =========================================================
+-- EXERCÍCIO 3: OTIMIZAÇÃO COM DETERMINISTIC
+-- =========================================================
+
+-- Analisar o plano de execução antes do índice
+EXPLAIN PLAN FOR
+SELECT nome, salario_base
+FROM tb_colaboradores
+WHERE fnc_calcular_irrf(salario_base) > 300;
+
+SELECT *
+FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+-- Criar índice baseado na função de cálculo do IRRF
+CREATE INDEX IDX_COLAB_IRRF
+ON tb_colaboradores (fnc_calcular_irrf(salario_base));
+
+-- Analisar novamente após a criação do índice
+EXPLAIN PLAN FOR
+SELECT nome, salario_base
+FROM tb_colaboradores
+WHERE fnc_calcular_irrf(salario_base) > 300;
+
+SELECT *
+FROM TABLE(DBMS_XPLAN.DISPLAY);
