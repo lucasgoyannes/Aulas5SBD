@@ -1,0 +1,18 @@
+-- =========================================================
+-- EXERCÍCIO 1: AMBIENTE MULTI-SCHEMA E PRIVILÉGIOS
+-- =========================================================
+
+-- Conceder permissão de leitura na tabela
+-- Executar como HR ou administrador
+GRANT SELECT ON HR.EMPLOYEES TO ANALISTA_BI;
+
+-- Conceder permissão para criar sinônimos privados
+-- Executar como administrador
+GRANT CREATE SYNONYM TO ANALISTA_BI;
+
+-- A partir do usuário ANALISTA_BI, criar o sinônimo
+CREATE SYNONYM FUNC
+FOR HR.EMPLOYEES;
+
+-- Consultar os dados utilizando o sinônimo
+SELECT * FROM FUNC;
