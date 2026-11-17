@@ -1,0 +1,32 @@
+-- =========================================================
+-- EXERCÍCIO 2: SIMULAÇÃO DE MUTATING TABLE (ORA-04091)
+-- =========================================================
+
+-- Criar Trigger que consulta a própria tabela
+CREATE OR REPLACE TRIGGER trg_empregados_mutating
+AFTER INSERT OR UPDATE ON tb_empregados
+FOR EACH ROW
+DECLARE
+    v_total NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_total
+    FROM tb_empregados
+    WHERE cargo = :NEW.cargo;
+END;
+/
+
+-- Testar a Trigger com uma alteração
+UPDATE tb_empregados
+SET cargo = 'ANALISTA DE TESTE'
+WHERE id_empregado = 1;
+
+/*
+A execução deve gerar o erro ORA-04091, pois a Trigger
+tenta consultar a própria tabela que está sendo modificada.
+
+O Oracle impede essa operação para evitar consultas a uma
+tabela em estado intermediário durante a execução do comando.
+Uma possível solução é utilizar Compound Triggers para
+realizar a consulta em outro momento da operação.
+*/
