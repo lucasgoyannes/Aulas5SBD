@@ -1,0 +1,27 @@
+-- =========================================================
+-- EXERCÍCIO 2: VIOLAÇÃO DE PUREZA E ERRO ORA-14551
+-- =========================================================
+
+-- Criar função experimental que realiza um UPDATE
+CREATE OR REPLACE FUNCTION fnc_teste_dml
+RETURN NUMBER IS
+BEGIN
+    UPDATE tb_colaboradores
+    SET salario_base = salario_base + 1
+    WHERE id_colaborador = 1;
+
+    RETURN 1;
+END;
+/
+
+-- Executar a função dentro de uma consulta SQL
+SELECT fnc_teste_dml() FROM DUAL;
+
+/*
+A execução da consulta deve gerar o erro ORA-14551,
+pois o Oracle não permite realizar operações DML dentro
+de uma função chamada diretamente por uma consulta SQL.
+
+Isso acontece porque a função modifica dados enquanto
+está sendo utilizada em uma operação de leitura.
+*/
