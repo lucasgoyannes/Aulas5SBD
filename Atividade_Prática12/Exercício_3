@@ -1,0 +1,21 @@
+-- =========================================================
+-- EXERCÍCIO 3: MANIPULAÇÃO DE PARÂMETROS IN OUT
+-- =========================================================
+
+-- Criar procedure para limpar e padronizar um texto
+CREATE OR REPLACE PROCEDURE prc_sanitizar_texto (
+    p_texto IN OUT VARCHAR2
+) IS
+BEGIN
+    p_texto := UPPER(TRIM(p_texto));
+END;
+/
+
+-- Testar a procedure
+DECLARE
+    v_texto VARCHAR2(100) := '   exemplo de Texto   ';
+BEGIN
+    prc_sanitizar_texto(v_texto);
+
+    DBMS_OUTPUT.PUT_LINE('Texto sanitizado: ' || v_texto);
+END;
