@@ -1,0 +1,14 @@
+-- =========================================================
+-- EXERCÍCIO 2: ORDEM DE RESOLUÇÃO DE NOMES
+-- =========================================================
+
+/*
+Ao executar SELECT * FROM PEDIDOS, o Oracle prioriza o
+objeto pertencente ao próprio schema do usuário. Portanto,
+considerando a situação hipotética apresentada, seria
+consultada a tabela física PEDIDOS, antes dos sinônimos
+privado e público.
+
+Essa prioridade segue a ordem de resolução de nomes do
+Oracle, na qual os objetos locais são verificados primeiro.
+*/
