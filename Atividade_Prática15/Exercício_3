@@ -1,0 +1,59 @@
+-- =========================================================
+-- EXERCÍCIO 3: CLÁUSULA WHEN
+-- =========================================================
+
+-- Manter auditoria de inserções e exclusões
+CREATE OR REPLACE TRIGGER trg_empregados_auditoria
+AFTER INSERT OR DELETE ON tb_empregados
+FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        INSERT INTO tb_auditoria_salarios (
+            id_empregado, operacao, salario_anterior, salario_novo
+        )
+        VALUES (
+            :NEW.id_empregado, 'INSERT', NULL, :NEW.salario
+        );
+
+    ELSIF DELETING THEN
+        INSERT INTO tb_auditoria_salarios (
+            id_empregado, operacao, salario_anterior, salario_novo
+        )
+        VALUES (
+            :OLD.id_empregado, 'DELETE', :OLD.salario, NULL
+        );
+    END IF;
+END;
+/
+
+-- Auditar alterações salariais somente quando o valor mudar
+CREATE OR REPLACE TRIGGER trg_empregados_auditoria_salario
+AFTER UPDATE OF salario ON tb_empregados
+FOR EACH ROW
+WHEN (NEW.salario <> OLD.salario)
+BEGIN
+    INSERT INTO tb_auditoria_salarios (
+        id_empregado, operacao, salario_anterior, salario_novo
+    )
+    VALUES (
+        :OLD.id_empregado, 'UPDATE', :OLD.salario, :NEW.salario
+    );
+END;
+/
+
+-- Teste sem alteração salarial: não deve gerar auditoria
+UPDATE tb_empregados
+SET salario = salario
+WHERE id_empregado = 1;
+
+-- Teste com aumento salarial: deve gerar auditoria
+UPDATE tb_empregados
+SET salario = salario + 100
+WHERE id_empregado = 1;
+
+COMMIT;
+
+-- Consultar os registros de auditoria
+SELECT *
+FROM tb_auditoria_salarios
+ORDER BY id_audit;
