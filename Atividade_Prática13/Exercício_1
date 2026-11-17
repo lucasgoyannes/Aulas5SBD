@@ -1,0 +1,20 @@
+-- =========================================================
+-- EXERCÍCIO 1: FUNÇÃO DE TEMPO DE CASA EM ANOS
+-- =========================================================
+
+-- Criar função para calcular os anos completos trabalhados
+CREATE OR REPLACE FUNCTION fnc_calcular_tempo_casa (
+    p_data_admissao IN DATE
+) RETURN NUMBER IS
+BEGIN
+    RETURN FLOOR(MONTHS_BETWEEN(SYSDATE, p_data_admissao) / 12);
+END;
+/
+
+-- Testar a função com os colaboradores cadastrados
+SELECT
+    nome,
+    data_admissao,
+    fnc_calcular_tempo_casa(data_admissao) AS anos_trabalhados
+FROM tb_colaboradores
+ORDER BY nome;
