@@ -1,0 +1,32 @@
+-- =========================================================
+-- EXERCÍCIO 1: PROCEDURE DE REAJUSTE DE SALDO EM MASSA
+-- =========================================================
+
+-- Criar procedure para reajustar o saldo das contas ativas
+CREATE OR REPLACE PROCEDURE prc_reajustar_saldo_em_massa (
+    p_percentual IN NUMBER,
+    p_total_atualizado OUT NUMBER
+) IS
+BEGIN
+    UPDATE tb_contas
+    SET saldo = saldo * (1 + p_percentual / 100)
+    WHERE status = 'ATIVA';
+
+    p_total_atualizado := SQL%ROWCOUNT;
+END;
+/
+
+-- Testar a procedure com reajuste de 10%
+DECLARE
+    v_total NUMBER;
+BEGIN
+    prc_reajustar_saldo_em_massa(
+        p_percentual => 10,
+        p_total_atualizado => v_total
+    );
+
+    DBMS_OUTPUT.PUT_LINE('Contas atualizadas: ' || v_total);
+
+    ROLLBACK;
+END;
+/
