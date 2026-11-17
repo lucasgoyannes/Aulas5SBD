@@ -1,0 +1,62 @@
+-- =========================================================
+-- EXERCÍCIO 1: TRIGGER INSTEAD OF
+-- =========================================================
+
+-- Criar tabela complementar de contatos
+CREATE TABLE tb_contato_empregados (
+    id_empregado NUMBER PRIMARY KEY
+        REFERENCES tb_empregados(id_empregado),
+    email VARCHAR2(100) NOT NULL,
+    telefone VARCHAR2(20) NOT NULL
+);
+
+-- Criar View com JOIN entre as duas tabelas
+CREATE OR REPLACE VIEW vw_empregados_detalhes AS
+SELECT
+    e.id_empregado,
+    e.nome,
+    e.cargo,
+    e.salario,
+    c.email,
+    c.telefone
+FROM tb_empregados e
+JOIN tb_contato_empregados c
+    ON e.id_empregado = c.id_empregado;
+
+-- Criar Trigger para direcionar os dados às tabelas
+CREATE OR REPLACE TRIGGER trg_vw_empregados_insert
+INSTEAD OF INSERT ON vw_empregados_detalhes
+FOR EACH ROW
+DECLARE
+    v_id_empregado NUMBER;
+BEGIN
+    INSERT INTO tb_empregados (nome, cargo, salario)
+    VALUES (:NEW.nome, :NEW.cargo, :NEW.salario)
+    RETURNING id_empregado INTO v_id_empregado;
+
+    INSERT INTO tb_contato_empregados (
+        id_empregado, email, telefone
+    )
+    VALUES (
+        v_id_empregado, :NEW.email, :NEW.telefone
+    );
+END;
+/
+
+-- Inserir funcionário através da View
+INSERT INTO vw_empregados_detalhes (
+    nome, cargo, salario, email, telefone
+)
+VALUES (
+    'Pedro Henrique',
+    'ANALISTA DE SISTEMAS',
+    4500.00,
+    'pedro@empresa.com.br',
+    '(21) 99999-1111'
+);
+
+COMMIT;
+
+-- Consultar os dados inseridos
+SELECT *
+FROM vw_empregados_detalhes;
